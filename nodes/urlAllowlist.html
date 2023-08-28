@@ -1,0 +1,127 @@
+<script type="text/javascript">
+    RED.nodes.registerType("urlAllowlist", {
+        category: "config",
+        defaults: {
+            name: {
+                value: "",
+                required: false,
+                validate: function (v) {
+                    return !v || v?.length;
+                },
+            },
+            mode: {
+                value: "or",
+                required: true,
+                validate: function (v) {
+                    return ["or", "and"].indexOf(v) != -1;
+                },
+            },
+            flags: {
+                value: "gmi",
+                required: false,
+                validate: function (v) {
+                    return ("" + v)
+                        .split("")
+                        .every((char) => "gmixsuUAJD".split("").indexOf(char) != -1);
+                },
+            },
+            pttns: {
+                value: "^https:\/\/",
+            },
+        },
+        label: function () {
+            return this.name ?? this?.pttns?.split("\n")[0] ?? "urlAllowlist";
+        },
+        oneditprepare: function () {
+            $("#node-config-input-mode").typedInput({
+                type: "mode",
+                types: [
+                    {
+                        value: "mode",
+                        options: [
+                            { value: "or", label: "OR" },
+                            { value: "and", label: "AND" },
+                        ],
+                    },
+                ],
+            });
+            this.editor = RED.editor.createEditor({
+                id: "pttns-editor",
+                mode: "monaco/mode/regex",
+                value: this.pttns ?? "",
+            });
+        },
+        oneditsave: function () {
+            const val = this.editor.getValue();
+            this.pttns = val ?? ".+";
+            this.editor.destroy();
+            delete this.editor;
+        },
+        oneditcancel: function () {
+            this.editor.destroy();
+            delete this.editor;
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="urlAllowlist">
+    <style>
+        textarea {
+            width: 100%;
+        }
+        .form-tips {
+            display: none;
+        }
+        .form-row:has(:is(input, textarea):focus) + .form-tips:not(:empty) {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+        .form-row:has(.red-ui-typedInput-focus) + .form-tips:not(:empty) {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+    </style>
+
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="urlAllowlist" />
+    </div>
+    <div class="form-tips"><b>ℹ️ Tip:</b> A useful name to refer to this list.</div>
+
+    <div class="form-row">
+        <label for="node-config-input-mode"><i class="fa fa-toggle-on"></i> Mode</label>
+        <input type="text" id="node-config-input-mode" placeholder="or" />
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> OR allows URLs when a pattern on <i>any</i> line matches. AND allows URLs
+        when patterns on <b>every</b> line match.
+    </div>
+
+    <div class="form-row">
+        <label for="node-config-input-flags"><i class="fa fa-flag"></i> Flags</label>
+        <input type="text" id="node-config-input-flags" placeholder="gmi" />
+    </div>
+    <div class="form-tips"><b>ℹ️ Tip:</b> Flags for the regular expressions below.</div>
+
+    <div class="form-row">
+        <label for="node-config-input-pttns"><i class="fa fa-list"></i> Patterns</label>
+        <div id="pttns-editor" style="height:20em" class="node-text-editor"></div>
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b>
+        Regular expression patterns to test URLs against, one per line.
+    </div>
+    <div class="form-row" style="margin-top:1em;">
+        <p>
+            You can use <a href="https://regex101.com" target="_blank"><u>regex101.com</u></a
+            >, <a href="https://regexr.com/" target="_blank"><u>regexr.com</u></a
+            >, or
+            <a href="https://www.regextester.com/" target="_blank"><u>regextester.com</u></a> to
+            test patterns.
+        </p>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="urlAllowlist">
+    <p>Enter regular expression patterns to test URLs against, one per line.</p>
+</script>

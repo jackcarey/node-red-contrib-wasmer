@@ -1,0 +1,139 @@
+[
+    {
+        "id": "d226b144c9884f5c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b0734e6efd6a5d13",
+        "type": "urlAllowlist",
+        "name": "wapm.io https",
+        "mode": "or",
+        "flags": "gmi",
+        "pttns": "^https:\\/\\/\r\nwapm\\.io"
+    },
+    {
+        "id": "d367b56ad8c9832b",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "name": "",
+        "allowlist": "b0734e6efd6a5d13",
+        "url": "https://registry-cdn.wapm.io/contents/syrusakbary/cowsay/0.3.0/target/wasm32-wasi/release/cowsay.wasm",
+        "maxHours": "72",
+        "functionName": "cowsay",
+        "env": "",
+        "args": "hello",
+        "x": 260,
+        "y": 60,
+        "wires": [
+            [
+                "1198e337d58c8b48"
+            ]
+        ]
+    },
+    {
+        "id": "cb2949c60ed45863",
+        "type": "inject",
+        "z": "d226b144c9884f5c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 40,
+        "wires": [
+            [
+                "d367b56ad8c9832b",
+                "8adbcaad701ce07f",
+                "e0c81a036f9ed92c",
+                "19c6a7f2084a87a0"
+            ]
+        ]
+    },
+    {
+        "id": "1198e337d58c8b48",
+        "type": "debug",
+        "z": "d226b144c9884f5c",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "wasmer.stdout",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "8adbcaad701ce07f",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "name": "",
+        "allowlist": "b0734e6efd6a5d13",
+        "url": "https://registry-cdn.wapm.io/contents/wiqarc/cowsay/0.2.0/target/wasm32-wasi/release/cowsay.wasm",
+        "maxHours": 72,
+        "functionName": "cowsay",
+        "env": "",
+        "args": "world",
+        "x": 260,
+        "y": 140,
+        "wires": [
+            [
+                "1198e337d58c8b48"
+            ]
+        ]
+    },
+    {
+        "id": "e0c81a036f9ed92c",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "name": "",
+        "allowlist": "b0734e6efd6a5d13",
+        "url": "https://registry-cdn.wapm.io/contents/jubianchi/cowsay/0.2.0/target/wasm32-wasi/release/cowsay.wasm",
+        "maxHours": 72,
+        "functionName": "cowthink",
+        "env": "",
+        "args": "hhmmm",
+        "x": 260,
+        "y": 220,
+        "wires": [
+            [
+                "1198e337d58c8b48"
+            ]
+        ]
+    },
+    {
+        "id": "19c6a7f2084a87a0",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "name": "",
+        "allowlist": "b0734e6efd6a5d13",
+        "url": "https://registry-cdn.wapm.io/contents/syrusakbary/cowsay/0.3.0/target/wasm32-wasi/release/cowsay.wasm",
+        "maxHours": "72",
+        "functionName": "cowsay",
+        "env": "",
+        "args": "hello",
+        "x": 260,
+        "y": 20,
+        "wires": [
+            [
+                "1198e337d58c8b48"
+            ]
+        ]
+    }
+]

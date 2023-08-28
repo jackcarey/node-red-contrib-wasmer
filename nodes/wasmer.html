@@ -1,0 +1,164 @@
+<script type="text/javascript">
+    RED.nodes.registerType("wasmer", {
+        category: "WebAssembly",
+        color: "#ead0f5",
+        defaults: {
+            name: { value: "" },
+            allowlist: {
+                value: "",
+                required: true,
+                type: "urlAllowlist",
+            },
+            url: {
+                value: "",
+                required: false,
+                validate: function (v) {
+                    if (!v) return true;
+                    try {
+                        const url = new URL(v);
+                        return true;
+                    } catch (e) {
+                        return false;
+                    }
+                },
+            },
+            maxHours: {
+                value: 72,
+                required: true,
+                validate: function (v) {
+                    return parseInt(v) && v > 0;
+                },
+            },
+            functionName: { value: "" },
+            env: { value: "" },
+            args: { value: "" },
+        },
+        inputs: 1,
+        outputs: 1,
+        inputLabels: function (index) {
+            return `msg`;
+        },
+        outputLabels: function (index) {
+            return `msg object with 'wasmer' property.`;
+        },
+        icon: "wasm.png",
+        paletteLabel: "wasmer",
+        label: function () {
+            return this.name ?? this.functionName ?? "wasmer";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="wasmer">
+    <style>
+        .form-tips {
+            display: none;
+        }
+        .form-row:has(input:focus) + .form-tips:not(:empty) {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+    </style>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="wasmer" />
+        <input type="hidden" id="node-input-name-type" />
+    </div>
+    <div class="form-tips"><b>ℹ️ Tip:</b> The name that appears in the flow editor.</div>
+
+    <div class="form-row">
+        <label for="node-input-allowlist"><i class="fa fa-check"></i> Allowlist</label>
+        <input id="node-input-allowlist" placeholder="allowlist" />
+        <input type="hidden" id="node-input-allowlist-type" />
+    </div>
+    <div class="form-tips"><b>ℹ️ Tip:</b> Not yet implemented.</div>
+    <div class="form-row">
+        <label for="node-input-url"><i class="fa fa-globe"></i> URL</label>
+        <input type="url" id="node-input-url" placeholder="https://example.com/function.wasm" />
+        <input type="hidden" id="node-input-url-type" />
+    </div>
+    <div class="form-tips"><b>ℹ️ Tip:</b> The URL of a <code>.wasm</code> file.</div>
+
+    <div class="form-row">
+        <label for="node-input-functionName"><i class="fa fa-code"></i> Function</label>
+        <input type="text" id="node-input-functionName" placeholder="main" />
+        <input type="hidden" id="node-input-functionName-type" />
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> Not yet implemented. The name of the function inside the .wasm file that will
+        run. Default: `main`.
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-env"><i class="fa fa-list"></i> Environment Variables</label>
+        <input type="text" id="node-input-env" placeholder="" />
+        <input type="hidden" id="node-input-env-type" />
+    </div>
+    <div class="form-tips"><b>ℹ️ Tip:</b> Not yet implemented.</div>
+
+    <div class="form-row">
+        <label for="node-input-args"><i class="fa fa-list"></i> Arguments</label>
+        <input type="text" id="node-input-args" placeholder="" />
+        <input type="hidden" id="node-input-args-type" />
+    </div>
+    <div class="form-tips"><b>ℹ️ Tip:</b> Not yet implemented.</div>
+
+    <div class="form-row">
+        <label for="node-input-fmaxHours"><i class="fa fa-sort-numeric-asc"></i> Age (hours)</label>
+        <input
+            type="number"
+            id="node-input-maxHours"
+            value="72"
+            placeholder="72"
+            min="1"
+            step="1"
+        />
+        <input type="hidden" id="node-input-maxHours-type" />
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> The maximum number of hours the <code>.wasm</code> file will be stored for
+        before it is re-fetched. Default: 72.
+    </div>
+</script>
+
+<script type="text/markdown" data-help-name="wasmer">
+    Execute WebAssembly using Wasmer.
+
+    ### Inputs
+
+    1. Allowlist
+       : allowlist (regex) : An allowed list of URL regular expression patterns.
+    2. URL
+       : url (string) : The address to fetch the WebAssembly file from.
+    3. Function
+       : functionName (string) : The name of the function to run.
+    4. Environment Variables
+       : env (???) : Environment variables that can be accessed withing the function.
+    5. Arguments
+       : args (string) : Arguments to pass into the function separated by spaces.
+    6. Age
+       : maxHours (number) : The maximum number of hours before attempting to re-fetch the `.wasm` file.
+
+    **Overriding Inputs:** The following inputs can be overridden by passing them in `msg.payload`: `url`, `functionName`, `args`.
+
+    ### Outputs
+
+    Available inside `msg.wasmer`.
+
+    1. Exit Code
+       : exitCode (number) : The exit code of the function that ran.
+    2. StdOut
+       : stdout (string) : The console output of the function that ran.
+    3. StdErr
+       : stderr (string) : Any error messages.
+
+    ### Details
+
+    TBC
+
+    ### References
+
+    -   [Wasmer](https://wasmer.io/)
+    -   [Regular Expressions](https://en.wikipedia.org/wiki/Regular_expression)
+</script>
