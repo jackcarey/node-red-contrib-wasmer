@@ -111,8 +111,8 @@ function toBool(val) {
  * @param roughlen - The maximum amount of characters the URL will use within the file name.
  * @returns The sanitised string.
  */
-function URLtoWASMFileName(url, roughLen = 30) {
-    const rand = "" + Math.round(seedrandom(url)() * 1000000); //6 random digits seeded from the URL
+function URLtoWASMFileName(url, roughLen = 50) {
+    const rand = ("" + seedrandom(url)()).substring(2,8); //6 random digits seeded from the URL
     const charReplace = (str) => str.replace(/[^A-z0-9\.\-]/gi, "");
     const endOfString = (str) => {
         const idx = str.length - roughLen;
@@ -194,7 +194,7 @@ async function checkFetchURLFile(node, url, init, subFolderName, maxHours = 72) 
         modifiedAt = stats?.mtimeMs ? new Date(stats.mtimeMs) : null;
     } catch (e) {
         //do nothing, file doesn't exist or couldn't be read, which will be handled below
-        UIMessage(node, "Couldn't access file stats", "warn", false, "checkFetchURLFile");
+        // UIMessage(node, "Couldn't access file stats", "warn", false, "checkFetchURLFile");
     }
     if (!stats || !modifiedAt || isTooOld(modifiedAt, maxHours)) {
         try {
