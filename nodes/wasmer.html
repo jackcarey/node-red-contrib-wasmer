@@ -30,7 +30,13 @@
                 },
             },
             functionName: { value: "" },
-            env: { value: "" },
+            env: { value: "{}" },
+            dirs: {
+                value: [],
+                validate: function (v) {
+                    return !v || Array.isArray(v);
+                },
+            },
             args: {
                 value: [],
                 validate: function (v) {
@@ -49,13 +55,17 @@
         icon: "wasm.png",
         paletteLabel: "wasmer",
         label: function () {
-            return this.name ?? this.functionName ?? "wasmer";
+            return this?.name || this?.functionName || "wasmer";
         },
         oneditprepare: function () {
             this.editor = RED.editor.createEditor({
                 id: "args-editor",
                 mode: "monaco/mode/regex",
                 value: this.args?.join("\n") ?? "",
+            });
+            $("#node-input-env").typedInput({
+                type: "json",
+                types: ["json"],
             });
         },
         oneditsave: function () {
@@ -122,26 +132,34 @@
         <input type="hidden" id="node-input-functionName-type" />
     </div>
     <div class="form-tips">
-        <b>ℹ️ Tip:</b> Not yet implemented. The name of the function inside the
-        <code>.wasm</code> file that will run. Default: <code>main</code>.
+        <b>ℹ️ Tip:</b>The name of the function inside the <code>.wasm</code> file that will run.
+        Default: <code>main</code>.
     </div>
-
-    <div class="form-row"><p>TODO: make env variables use JSON typedInput</p></div>
 
     <div class="form-row">
         <label for="node-input-env"><i class="fa fa-list"></i> Environment Variables</label>
         <input type="text" id="node-input-env" placeholder="" />
         <input type="hidden" id="node-input-env-type" />
     </div>
-    <div class="form-tips"><b>ℹ️ Tip:</b> Not yet implemented.</div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> A flat list of key-value pairs to be passed as environment variables to the
+        function.
+    </div>
 
     <div class="form-row">
         <label for="args-editor"><i class="fa fa-list"></i> Arguments</label>
         <div id="args-editor" style="height:5em" class="node-text-editor"></div>
     </div>
-    <div class="form-tips"><b>ℹ️ Tip:</b> One per line.</div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> One per line. Passed to the function before it executes.
+    </div>
 
-    <div class="form-row"><p>TODO: filesystem access as at https://github.com/wasmerio/wasmer-js/blob/main/examples/node/fs.mjs</p></div>
+    <div class="form-row">
+        <p>
+            TODO: filesystem access as at
+            https://github.com/wasmerio/wasmer-js/blob/main/examples/node/fs.mjs
+        </p>
+    </div>
 
     <div class="form-row">
         <label for="node-input-fmaxHours"><i class="fa fa-sort-numeric-asc"></i> Age (hours)</label>
