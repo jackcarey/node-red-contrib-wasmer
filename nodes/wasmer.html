@@ -31,7 +31,12 @@
             },
             functionName: { value: "" },
             env: { value: "" },
-            args: { value: "" },
+            args: {
+                value: [],
+                validate: function (v) {
+                    return !v || Array.isArray(v);
+                },
+            },
         },
         inputs: 1,
         outputs: 1,
@@ -45,16 +50,45 @@
         paletteLabel: "wasmer",
         label: function () {
             return this.name ?? this.functionName ?? "wasmer";
-        }
+        },
+        oneditprepare: function () {
+            this.editor = RED.editor.createEditor({
+                id: "args-editor",
+                mode: "monaco/mode/regex",
+                value: this.args?.join("\n") ?? "",
+            });
+        },
+        oneditsave: function () {
+            let val = this.editor.getValue();
+            if (val.length) {
+                val = val?.split(new RegExp(`[\n\r]`, "gmi"));
+                this.args = Array.isArray(val) ? val : [val];
+            } else {
+                val = [];
+            }
+            this.editor.destroy();
+            delete this.editor;
+        },
+        oneditcancel: function () {
+            this.editor.destroy();
+            delete this.editor;
+        },
     });
 </script>
 
 <script type="text/html" data-template-name="wasmer">
     <style>
+        textarea {
+            width: 100%;
+        }
         .form-tips {
             display: none;
         }
-        .form-row:has(input:focus) + .form-tips:not(:empty) {
+        .form-row:has(:is(input, textarea):focus) + .form-tips:not(:empty) {
+            display: block;
+            margin-bottom: 0.5em;
+        }
+        .form-row:has(.red-ui-typedInput-focus) + .form-tips:not(:empty) {
             display: block;
             margin-bottom: 0.5em;
         }
@@ -72,7 +106,9 @@
         <input id="node-input-allowlist" placeholder="allowlist" />
         <input type="hidden" id="node-input-allowlist-type" />
     </div>
-    <div class="form-tips"><b>ℹ️ Tip:</b> Not yet implemented.</div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> Patterns for allowing URLs for <code>.wasm</code> files
+    </div>
     <div class="form-row">
         <label for="node-input-url"><i class="fa fa-globe"></i> URL</label>
         <input type="url" id="node-input-url" placeholder="https://example.com/function.wasm" />
@@ -86,9 +122,11 @@
         <input type="hidden" id="node-input-functionName-type" />
     </div>
     <div class="form-tips">
-        <b>ℹ️ Tip:</b> Not yet implemented. The name of the function inside the .wasm file that will
-        run. Default: `main`.
+        <b>ℹ️ Tip:</b> Not yet implemented. The name of the function inside the
+        <code>.wasm</code> file that will run. Default: <code>main</code>.
     </div>
+
+    <div class="form-row"><p>TODO: make env variables use JSON typedInput</p></div>
 
     <div class="form-row">
         <label for="node-input-env"><i class="fa fa-list"></i> Environment Variables</label>
@@ -98,11 +136,12 @@
     <div class="form-tips"><b>ℹ️ Tip:</b> Not yet implemented.</div>
 
     <div class="form-row">
-        <label for="node-input-args"><i class="fa fa-list"></i> Arguments</label>
-        <input type="text" id="node-input-args" placeholder="" />
-        <input type="hidden" id="node-input-args-type" />
+        <label for="args-editor"><i class="fa fa-list"></i> Arguments</label>
+        <div id="args-editor" style="height:5em" class="node-text-editor"></div>
     </div>
-    <div class="form-tips"><b>ℹ️ Tip:</b> Not yet implemented.</div>
+    <div class="form-tips"><b>ℹ️ Tip:</b> One per line.</div>
+
+    <div class="form-row"><p>TODO: filesystem access as at https://github.com/wasmerio/wasmer-js/blob/main/examples/node/fs.mjs</p></div>
 
     <div class="form-row">
         <label for="node-input-fmaxHours"><i class="fa fa-sort-numeric-asc"></i> Age (hours)</label>
