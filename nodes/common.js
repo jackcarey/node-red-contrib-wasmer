@@ -27,7 +27,8 @@ function UIMessage(node, msg = "", color = null, isFilled = false, loc = "") {
         case "ok": color = "green"; break;
         case "info": color = "blue"; break;
         case "log": color = ""; break;
-        default: color = ""; break;
+        case "gray": color = "grey"; break;
+        default: break;
     }
 
 
@@ -70,13 +71,13 @@ function UIMessageFactory(node, UIMessageLocation = "") {
 }
 
 function handleError(node, err, msg = {}, done = null) {
+    const str = err?.message ?? JSON.stringify(err);
+    UIMessage(node, str, "error", true);
     if (done) {
         // Node-RED 1.0 compatible
-        UIMessage(node, err, "red", true);
         done(err);
     } else {
         // Node-RED 0.x compatible
-        UIMessage(node, err, "red", true);
         node.error(err, msg);
     }
 }
@@ -112,7 +113,7 @@ function toBool(val) {
  * @returns The sanitised string.
  */
 function URLtoWASMFileName(url, roughLen = 50) {
-    const rand = ("" + seedrandom(url)()).substring(2,8); //6 random digits seeded from the URL
+    const rand = ("" + seedrandom(url)()).substring(2, 8); //6 random digits seeded from the URL
     const charReplace = (str) => str.replace(/[^A-z0-9\.\-]/gi, "");
     const endOfString = (str) => {
         const idx = str.length - roughLen;

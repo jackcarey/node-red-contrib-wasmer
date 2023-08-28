@@ -4,11 +4,6 @@ module.exports = function (RED) {
             RED.nodes.createNode(this, config);
             const { UIMessageFactory, handleError, checkFetchURLFile } = require("./common");
             const UIMessage = UIMessageFactory(this, "WasmerNode");
-            /**************************************************
-             * WASI bits
-             **************************************************/
-            const { init, WASI } = require('@wasmer/wasi');
-            init().then(() => { }).catch(e => UIMessage(e, "red", true, "WASI-init"));
             const node = this;
             this.allowlist = RED.nodes.getNode(config?.allowlist);
             const isAllowedURL = (str) => {
@@ -18,27 +13,33 @@ module.exports = function (RED) {
                         const tuple = [pttn, res];
                         return tuple;
                     });
-                    if (this?.allowlist?.mode == "and") {
-                        return tests.every(([pttn, result]) => result ? true : false) ?? false;
+                    console.log(str, "\n", tests);
+                    if (this.allowlist?.mode == "and") {
+                        return tests.every(([pttn, result]) => result);
                     } else {
-                        return tests.some(([pttn, result]) => result ? true : false) ?? false;
+                        return tests.some(([pttn, result]) => result);
                     }
                 }
                 return false;
             };
-
+            /**************************************************
+             * WASI bits
+             * https://wasmerio.github.io/wasmer-js/
+             **************************************************/
+            const { init, WASI } = require('@wasmer/wasi');
+            init().then(() => { }).catch(e => UIMessage(e, "red"));
             let instantiatedConfigStr = null;
             let wasmFileBuffer = null;
 
             async function runWASI(configObj) {
                 const wasiObj = {
-                    env: {},
+                    env: configObj?.env ? JSON.parse(configObj.env) : {},
                     args: [configObj?.functionName ?? "main", ...configObj?.args ?? []],
                 };
                 const url = configObj?.url;
                 if (url) {
                     if (!isAllowedURL(url)) {
-                        UIMessage("URL not allowed", "red");
+                        throw new Error("URL not allowed");
                     }
 
                     if (!wasmFileBuffer || JSON.stringify(configObj) != instantiatedConfigStr) {
@@ -47,11 +48,12 @@ module.exports = function (RED) {
                     }
 
                     if (!wasmFileBuffer) {
-                        UIMessage("No buffer, couldn't retrieve file", "red");
+                        throw new Error("No buffer, couldn't retrieve file");
                     }
                     const wasi = new WASI(wasiObj);
                     const module = await WebAssembly.compile(new Uint8Array(wasmFileBuffer));
                     await wasi.instantiate(module, {});
+
                     let exitCode = wasi.start()
                     let stdout = wasi.getStdoutString();
                     let stderr = wasi.getStderrString();
@@ -66,15 +68,15 @@ module.exports = function (RED) {
                 console.log("wasmer.onInput", msg);
                 try {
                     let usingConfig = msg?.wasmer ? { ...config, ...msg.wasmer } : config;
-                    UIMessage(node, "running function...");
+                    UIMessage("running function...");
                     const result = await runWASI(usingConfig);
                     const exitCode = result?.exitCode ?? 0;
                     msg.wasmer = msg?.wasmer ? { ...msg?.wasmer, ...result } : result;
+                    UIMessage(exitCode, exitCode ? "red" : "green", exitCode ? false : true);
+                    send(msg);
                     if (done) {
-                        UIMessage(node, exitCode, exitCode ? "red" : "green", exitCode ? false : true);
                         done();
                     }
-                    send(msg);
                 } catch (err) {
                     handleError(node, err, msg, done);
                 }
