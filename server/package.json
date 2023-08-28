@@ -12,6 +12,6 @@
     "express": "^4.18.2",
     "http": "^0.0.1-security",
     "node-red": "^3.0.2",
-    "node-red-contrib-wasm-nodes": "file:../nodes"
+    "node-red-contrib-wasmer": "file:../nodes"
   }
 }

@@ -1,5 +1,5 @@
 {
-  "name": "node-red-contrib-wasm-nodes",
+  "name": "node-red-contrib-wasmer",
   "version": "0.0.1",
   "description": "Execute WebAssembly code within NodeRED.",
   "node-red": {
