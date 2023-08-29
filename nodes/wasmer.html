@@ -32,10 +32,7 @@
             functionName: { value: "" },
             env: { value: "{}" },
             dirs: {
-                value: [],
-                validate: function (v) {
-                    return !v || Array.isArray(v);
-                },
+                value: "{}",
             },
             args: {
                 value: [],
@@ -61,17 +58,19 @@
             this.editor = RED.editor.createEditor({
                 id: "args-editor",
                 mode: "monaco/mode/regex",
-                value: this.args?.join("\n") ?? "",
+                value: (Array.isArray(this?.args) ? this.args?.join("\n") : this?.args) ?? "",
             });
-            $("#node-input-env").typedInput({
-                type: "json",
-                types: ["json"],
+            ["#node-input-env", "#node-input-dirs"].forEach((selector) => {
+                $(selector).typedInput({
+                    type: "json",
+                    types: ["json"],
+                });
             });
         },
         oneditsave: function () {
             let val = this.editor.getValue();
             if (val.length) {
-                val = val?.split(new RegExp(`[\n\r]`, "gmi"));
+                val = val?.split(new RegExp(`[\n\r]`, "gmi")).filter((x) => x?.length);
                 this.args = Array.isArray(val) ? val : [val];
             } else {
                 val = [];
@@ -127,41 +126,6 @@
     <div class="form-tips"><b>ℹ️ Tip:</b> The URL of a <code>.wasm</code> file.</div>
 
     <div class="form-row">
-        <label for="node-input-functionName"><i class="fa fa-code"></i> Function</label>
-        <input type="text" id="node-input-functionName" placeholder="main" />
-        <input type="hidden" id="node-input-functionName-type" />
-    </div>
-    <div class="form-tips">
-        <b>ℹ️ Tip:</b>The name of the function inside the <code>.wasm</code> file that will run.
-        Default: <code>main</code>.
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-env"><i class="fa fa-list"></i> Environment Variables</label>
-        <input type="text" id="node-input-env" placeholder="" />
-        <input type="hidden" id="node-input-env-type" />
-    </div>
-    <div class="form-tips">
-        <b>ℹ️ Tip:</b> A flat list of key-value pairs to be passed as environment variables to the
-        function.
-    </div>
-
-    <div class="form-row">
-        <label for="args-editor"><i class="fa fa-list"></i> Arguments</label>
-        <div id="args-editor" style="height:5em" class="node-text-editor"></div>
-    </div>
-    <div class="form-tips">
-        <b>ℹ️ Tip:</b> One per line. Passed to the function before it executes.
-    </div>
-
-    <div class="form-row">
-        <p>
-            TODO: filesystem access as at
-            https://github.com/wasmerio/wasmer-js/blob/main/examples/node/fs.mjs
-        </p>
-    </div>
-
-    <div class="form-row">
         <label for="node-input-fmaxHours"><i class="fa fa-sort-numeric-asc"></i> Age (hours)</label>
         <input
             type="number"
@@ -177,6 +141,54 @@
         <b>ℹ️ Tip:</b> The maximum number of hours the <code>.wasm</code> file will be stored for
         before it is re-fetched. Default: 72.
     </div>
+
+    <div class="form-row">
+        <label for="node-input-functionName"><i class="fa fa-code"></i> Function</label>
+        <input type="text" id="node-input-functionName" placeholder="main" />
+        <input type="hidden" id="node-input-functionName-type" />
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b>The name of the function inside the <code>.wasm</code> file that will run.
+        Default: <code>main</code>.
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-stdin"><i class="fa fa-keyboard-o"></i> Standard Input</label>
+        <input type="text" id="node-input-stdin" placeholder="" />
+        <input type="hidden" id="node-input-stdin-type" />
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b>A standard input sent to the function after it first executes. Useful if a
+        function asks for input at runtime.
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-env"><i class="fa fa-list"></i> Environment Variables</label>
+        <input type="text" id="node-input-env" placeholder="" />
+        <input type="hidden" id="node-input-env-type" />
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> A flat JSON list of key-value pairs to be passed as environment variables to
+        the function.
+    </div>
+
+    <div class="form-row">
+        <label for="node-input-dirs"><i class="fa fa-folder-open-o"></i> Files</label>
+        <input type="text" id="node-input-dirs" placeholder="" />
+        <input type="hidden" id="node-input-dirs-type" />
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> A flat JSON list of key-value pairs to be passed as available directories and
+        file content.
+    </div>
+
+    <div class="form-row">
+        <label for="args-editor"><i class="fa fa-list"></i> Arguments</label>
+        <div id="args-editor" style="height:5em" class="node-text-editor"></div>
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> One per line. Passed to the function when it executes.
+    </div>
 </script>
 
 <script type="text/markdown" data-help-name="wasmer">
@@ -190,14 +202,17 @@
        : url (string) : The address to fetch the WebAssembly file from.
     3. Function
        : functionName (string) : The name of the function to run.
-    4. Environment Variables
-       : env (???) : Environment variables that can be accessed withing the function.
-    5. Arguments
-       : args (string) : Arguments to pass into the function separated by spaces.
-    6. Age
+    4. Standard Input
+       : stdin (string) : Text to pass to the function after it first executes.
+    5. Environment Variables
+       : env (JSON) : Environment variables that can be accessed withing the function.
+    6. Arguments
+       : args (array[string]) : Arguments to pass into the function separated by spaces.
+    7. Directories
+       : dirs (JSON) : Virtual file paths made available to the module, and their contents.
+    8. Age
        : maxHours (number) : The maximum number of hours before attempting to re-fetch the `.wasm` file.
-
-    **Overriding Inputs:** The following inputs can be overridden by passing them in `msg.payload`: `url`, `functionName`, `args`.
+       **Overriding Inputs:** The following inputs can be overridden by passing them in `msg.payload`: `url`, `functionName`, `stdin`, `args`, `dirs`.
 
     ### Outputs
 
@@ -205,14 +220,14 @@
 
     1. Exit Code
        : exitCode (number) : The exit code of the function that ran.
-    2. StdOut
+    2. Standard Input
+       : stdin (string) : The input buffer as a string.
+    3. Standard Output
        : stdout (string) : The console output of the function that ran.
-    3. StdErr
+    4. StdErr
        : stderr (string) : Any error messages.
-
-    ### Details
-
-    TBC
+    5. Directories
+       : dirs (JSON) : The path and contents of each virtual file.
 
     ### References
 

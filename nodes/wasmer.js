@@ -34,7 +34,7 @@ module.exports = function (RED) {
             async function runWASI(configObj) {
                 const wasiObj = {
                     env: configObj?.env ? JSON.parse(configObj.env) : {},
-                    args: [configObj?.functionName ?? "main", ...configObj?.args ?? []],
+                    args: [configObj?.functionName ?? "main", ...configObj?.args ?? []]
                 };
                 const url = configObj?.url;
                 if (url) {
@@ -54,10 +54,53 @@ module.exports = function (RED) {
                     const module = await WebAssembly.compile(new Uint8Array(wasmFileBuffer));
                     await wasi.instantiate(module, {});
 
-                    let exitCode = wasi.start()
+                    //https://github.com/wasmerio/wasmer-js/blob/main/examples/node/fs.mjs
+                    function createDirFile(path, content) {
+                        // path = path.startsWith("/") ? path : `/${path}`;
+                        if (content) {
+                            let file = wasi.fs.open(path, { read: true, write: true, create: true });
+                            switch (typeof content) {
+                                case "undefined": break;
+                                case "object":
+                                    if (Array.isArray(content) && typeof content[0] === "number") {
+                                        file.write(content);
+                                    } else {
+                                        file.writeString(JSON.stringify(content));
+                                    }
+                                    break;
+                                default:
+                                    file.writeString("" + content);
+                                    break;
+                            }
+                            file.seek(0);
+                        }
+                    }
+                    function readDirFile(path) {
+                        return wasi.fs.open(path, { read: true }).readString();
+                    }
+
+                    if (configObj?.dirs) {
+                        Object.entries(configObj.dirs).forEach(([path, content]) => {
+                            createDirFile(path, content);
+                        });
+                    }
+
+                    if (configObj?.stdin) {
+                        wasi.setStdinString(`${configObj.stdin}`);
+                    }
+
+                    let exitCode = wasi.start();
                     let stdout = wasi.getStdoutString();
                     let stderr = wasi.getStderrString();
-                    return { exitCode, stdout, stderr };
+                    let dirs = configObj?.dirs ?? {};
+
+                    if (configObj?.dirs) {
+                        Object.keys(configObj.dirs).forEach(path => {
+                            dirs[path] = readDirFile(path);
+                        });
+                    }
+
+                    return { exitCode, stdout, stderr, dirs };
                 }
             }
 
