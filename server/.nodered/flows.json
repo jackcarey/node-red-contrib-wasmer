@@ -19,25 +19,28 @@
         "id": "cb2949c60ed45863",
         "type": "inject",
         "z": "d226b144c9884f5c",
-        "name": "",
+        "name": "Cowsay",
         "props": [
             {
                 "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
             }
         ],
         "repeat": "",
         "crontab": "",
         "once": false,
         "onceDelay": 0.1,
-        "topic": "",
+        "topic": "COW",
         "payload": "",
         "payloadType": "date",
-        "x": 100,
+        "x": 130,
         "y": 40,
         "wires": [
             [
-                "c80f9534df759c20",
-                "804e8df9b9d2e89f"
+                "c80f9534df759c20"
             ]
         ]
     },
@@ -48,14 +51,14 @@
         "name": "debug 1",
         "active": true,
         "tosidebar": true,
-        "console": true,
-        "tostatus": true,
+        "console": false,
+        "tostatus": false,
         "complete": "true",
         "targetType": "full",
-        "statusVal": "wasmer.stdout",
+        "statusVal": "",
         "statusType": "auto",
-        "x": 430,
-        "y": 40,
+        "x": 600,
+        "y": 60,
         "wires": []
     },
     {
@@ -67,11 +70,12 @@
         "url": "https://registry-cdn.wapm.io/contents/syrusakbary/cowsay/0.3.0/target/wasm32-wasi/release/cowsay.wasm",
         "maxHours": 72,
         "functionName": "cowsay",
-        "env": "{}",
+        "env": "{\"ENV1\":\"hello world\"}",
+        "dirs": "{}",
         "args": [
-            "hello world"
+            "moo"
         ],
-        "x": 260,
+        "x": 280,
         "y": 40,
         "wires": [
             [
@@ -90,14 +94,472 @@
         "functionName": "cowthink",
         "env": "{}",
         "args": [
-            "world says hi"
+            "hhhmmmm"
         ],
-        "x": 260,
-        "y": 100,
+        "x": 280,
+        "y": 80,
         "wires": [
             [
                 "1198e337d58c8b48"
             ]
         ]
+    },
+    {
+        "id": "b2994709d54ff320",
+        "type": "inject",
+        "z": "d226b144c9884f5c",
+        "name": "SQLite",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SQLITE",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "9ed06f518d3acb04"
+            ]
+        ]
+    },
+    {
+        "id": "241ad61d4cb776e0",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "name": "",
+        "allowlist": "b0734e6efd6a5d13",
+        "url": "https://registry-cdn.wapm.io/contents/sqlite/sqlite/0.2.2/build/sqlite.wasm",
+        "maxHours": 72,
+        "functionName": "sqlite3",
+        "env": "{}",
+        "dirs": "{}",
+        "args": [],
+        "x": 450,
+        "y": 280,
+        "wires": [
+            [
+                "2f22cabbf387f704"
+            ]
+        ]
+    },
+    {
+        "id": "9ed06f518d3acb04",
+        "type": "function",
+        "z": "d226b144c9884f5c",
+        "name": "set wasmer",
+        "func": "msg.wasmer = {};\nmsg.wasmer.stdin = `CREATE TABLE COMPANY(\n  ID INT PRIMARY KEY     NOT NULL,\n    NAME           TEXT    NOT NULL,\n    AGE            INT     NOT NULL,\n    ADDRESS        CHAR(50),\n    SALARY         REAL\n);\n\n    INSERT INTO COMPANY(ID, NAME, AGE, ADDRESS, SALARY)\nVALUES(1, 'Paul', 32, 'California', 20000.00);\n\n    INSERT INTO COMPANY(ID, NAME, AGE, ADDRESS, SALARY)\nVALUES(2, 'Allen', 25, 'Texas', 15000.00);\n\n    INSERT INTO COMPANY(ID, NAME, AGE, ADDRESS, SALARY)\nVALUES(3, 'Teddy', 23, 'Norway', 20000.00);\n\n    INSERT INTO COMPANY(ID, NAME, AGE, ADDRESS, SALARY)\nVALUES(4, 'Mark', 25, 'Rich-Mond ', 65000.00);\n\n    SELECT * FROM COMPANY;`;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 280,
+        "wires": [
+            [
+                "241ad61d4cb776e0"
+            ]
+        ]
+    },
+    {
+        "id": "2f22cabbf387f704",
+        "type": "debug",
+        "z": "d226b144c9884f5c",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "9a18502396a8045c",
+        "type": "inject",
+        "z": "d226b144c9884f5c",
+        "name": "Lua",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "LUA",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 360,
+        "wires": [
+            [
+                "b8b61b64cbc85d96"
+            ]
+        ]
+    },
+    {
+        "id": "b8b61b64cbc85d96",
+        "type": "function",
+        "z": "d226b144c9884f5c",
+        "name": "set wasmer",
+        "func": "msg.wasmer = {};\nmsg.wasmer.stdin = `print(\"Hello World\")`;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 360,
+        "wires": [
+            [
+                "20c1345f0fed3645"
+            ]
+        ]
+    },
+    {
+        "id": "20c1345f0fed3645",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "name": "lua",
+        "allowlist": "b0734e6efd6a5d13",
+        "url": "https://registry-cdn.wapm.io/contents/syrusakbary/lua/0.1.4/lua.wasm",
+        "maxHours": 72,
+        "functionName": "lua",
+        "env": "{}",
+        "dirs": "{}",
+        "args": [],
+        "x": 450,
+        "y": 360,
+        "wires": [
+            [
+                "08bc5dcf544849a5"
+            ]
+        ]
+    },
+    {
+        "id": "08bc5dcf544849a5",
+        "type": "debug",
+        "z": "d226b144c9884f5c",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "86b2d3d369521856",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "name": "tux",
+        "allowlist": "b0734e6efd6a5d13",
+        "url": "https://registry-cdn.wapm.io/contents/syrusakbary/cowsay/0.3.0/target/wasm32-wasi/release/cowsay.wasm",
+        "maxHours": 72,
+        "functionName": "cowsay",
+        "env": "{}",
+        "dirs": "{}",
+        "args": [
+            "-f",
+            "tux",
+            "\"Honk honk!\""
+        ],
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "1198e337d58c8b48"
+            ]
+        ]
+    },
+    {
+        "id": "d1ab39ea8282c99f",
+        "type": "inject",
+        "z": "d226b144c9884f5c",
+        "name": "Cowsay",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "COW",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "804e8df9b9d2e89f"
+            ]
+        ]
+    },
+    {
+        "id": "210ae9daf17076a4",
+        "type": "inject",
+        "z": "d226b144c9884f5c",
+        "name": "Cowsay",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "COW",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "86b2d3d369521856"
+            ]
+        ]
+    },
+    {
+        "id": "e99880b92ea5b914",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "name": "greedy",
+        "allowlist": "b0734e6efd6a5d13",
+        "url": "https://registry-cdn.wapm.io/contents/syrusakbary/cowsay/0.3.0/target/wasm32-wasi/release/cowsay.wasm",
+        "maxHours": 72,
+        "functionName": "cowsay",
+        "env": "{}",
+        "dirs": "",
+        "args": [
+            "-b",
+            "Borg"
+        ],
+        "x": 270,
+        "y": 160,
+        "wires": [
+            [
+                "1198e337d58c8b48"
+            ]
+        ]
+    },
+    {
+        "id": "d14f314f98c40c2d",
+        "type": "inject",
+        "z": "d226b144c9884f5c",
+        "name": "Cowsay",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "COW",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "e99880b92ea5b914"
+            ]
+        ]
+    },
+    {
+        "id": "123566d55a64d373",
+        "type": "inject",
+        "z": "d226b144c9884f5c",
+        "name": "Cowsay",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "COW",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 200,
+        "wires": [
+            [
+                "638fa3ad4c29d06b"
+            ]
+        ]
+    },
+    {
+        "id": "2c0598bae43a68da",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "name": "from file",
+        "allowlist": "b0734e6efd6a5d13",
+        "url": "https://registry-cdn.wapm.io/contents/syrusakbary/cowsay/0.3.0/target/wasm32-wasi/release/cowsay.wasm",
+        "maxHours": 72,
+        "functionName": "cowsay",
+        "env": "{}",
+        "dirs": "",
+        "args": [
+            "-b",
+            "Borg"
+        ],
+        "x": 460,
+        "y": 200,
+        "wires": [
+            [
+                "1198e337d58c8b48"
+            ]
+        ]
+    },
+    {
+        "id": "638fa3ad4c29d06b",
+        "type": "function",
+        "z": "d226b144c9884f5c",
+        "name": "set wasmer",
+        "func": "msg.wasmer = {};\nmsg.wasmer.dirs = {};\nmsg.wasmer.dirs[\"snake.cow\"] = `>-(:)#########`;\nmsg.wasmer.args = [\"-f\",\"snake.cow\",\"sssssss!\"];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 200,
+        "wires": [
+            [
+                "2c0598bae43a68da"
+            ]
+        ]
+    },
+    {
+        "id": "8da38688e3de93df",
+        "type": "inject",
+        "z": "d226b144c9884f5c",
+        "name": "Lua",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "LUA",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "9fa87fbf73906714"
+            ]
+        ]
+    },
+    {
+        "id": "9fa87fbf73906714",
+        "type": "function",
+        "z": "d226b144c9884f5c",
+        "name": "set wasmer",
+        "func": "msg.wasmer = {};\nmsg.wasmer.dirs = {};\nmsg.wasmer.dirs[\"helloworld.lua\"] = `print(\"Hello World\")`;\nmsg.wasmer.args = [\"helloworld.lua\"];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 400,
+        "wires": [
+            [
+                "eac2d19544dd1423"
+            ]
+        ]
+    },
+    {
+        "id": "eac2d19544dd1423",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "name": "lua v_file",
+        "allowlist": "b0734e6efd6a5d13",
+        "url": "https://registry-cdn.wapm.io/contents/syrusakbary/lua/0.1.4/lua.wasm",
+        "maxHours": 72,
+        "functionName": "lua",
+        "env": "{}",
+        "dirs": "{}",
+        "args": [],
+        "x": 460,
+        "y": 400,
+        "wires": [
+            [
+                "c1f52f5c09300039"
+            ]
+        ]
+    },
+    {
+        "id": "c1f52f5c09300039",
+        "type": "debug",
+        "z": "d226b144c9884f5c",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 400,
+        "wires": []
     }
 ]

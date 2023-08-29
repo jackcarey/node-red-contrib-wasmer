@@ -422,17 +422,6 @@
         "local": false,
         "user": false,
         "nodes": {
-            "dud": {
-                "name": "dud",
-                "types": [
-                    "dud"
-                ],
-                "enabled": true,
-                "local": false,
-                "user": false,
-                "module": "node-red-contrib-wasm-nodes",
-                "file": "C:\\Users\\jackc\\Documents\\GitHub\\node-red-contrib-wasm-nodes\\server\\node_modules\\node-red-contrib-wasm-nodes\\dud.js"
-            },
             "urlAllowlist": {
                 "name": "urlAllowlist",
                 "types": [
@@ -454,6 +443,36 @@
                 "user": false,
                 "module": "node-red-contrib-wasm-nodes",
                 "file": "C:\\Users\\jackc\\Documents\\GitHub\\node-red-contrib-wasm-nodes\\server\\node_modules\\node-red-contrib-wasm-nodes\\wasmer.js"
+            }
+        }
+    },
+    "node-red-contrib-wasmer": {
+        "name": "node-red-contrib-wasmer",
+        "version": "0.0.1",
+        "local": false,
+        "user": false,
+        "nodes": {
+            "urlAllowlist": {
+                "name": "urlAllowlist",
+                "types": [
+                    "urlAllowlist"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "node-red-contrib-wasmer",
+                "file": "C:\\Users\\jackc\\Documents\\GitHub\\node-red-contrib-wasm-nodes\\server\\node_modules\\node-red-contrib-wasmer\\urlAllowlist.js"
+            },
+            "wasmer": {
+                "name": "wasmer",
+                "types": [
+                    "wasmer"
+                ],
+                "enabled": true,
+                "local": false,
+                "user": false,
+                "module": "node-red-contrib-wasmer",
+                "file": "C:\\Users\\jackc\\Documents\\GitHub\\node-red-contrib-wasm-nodes\\server\\node_modules\\node-red-contrib-wasmer\\wasmer.js"
             }
         }
     }

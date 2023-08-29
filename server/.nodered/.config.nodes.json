@@ -416,8 +416,8 @@
             }
         }
     },
-    "node-red-contrib-wasm-nodes": {
-        "name": "node-red-contrib-wasm-nodes",
+    "node-red-contrib-wasmer": {
+        "name": "node-red-contrib-wasmer",
         "version": "0.0.1",
         "local": false,
         "user": false,
@@ -430,8 +430,8 @@
                 "enabled": true,
                 "local": false,
                 "user": false,
-                "module": "node-red-contrib-wasm-nodes",
-                "file": "C:\\Users\\jackc\\Documents\\GitHub\\node-red-contrib-wasm-nodes\\server\\node_modules\\node-red-contrib-wasm-nodes\\urlAllowlist.js"
+                "module": "node-red-contrib-wasmer",
+                "file": "C:\\Users\\jackc\\Documents\\GitHub\\node-red-contrib-wasm-nodes\\server\\node_modules\\node-red-contrib-wasmer\\urlAllowlist.js"
             },
             "wasmer": {
                 "name": "wasmer",
@@ -441,8 +441,8 @@
                 "enabled": true,
                 "local": false,
                 "user": false,
-                "module": "node-red-contrib-wasm-nodes",
-                "file": "C:\\Users\\jackc\\Documents\\GitHub\\node-red-contrib-wasm-nodes\\server\\node_modules\\node-red-contrib-wasm-nodes\\wasmer.js"
+                "module": "node-red-contrib-wasmer",
+                "file": "C:\\Users\\jackc\\Documents\\GitHub\\node-red-contrib-wasm-nodes\\server\\node_modules\\node-red-contrib-wasmer\\wasmer.js"
             }
         }
     }
