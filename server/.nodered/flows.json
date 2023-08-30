@@ -463,6 +463,7 @@
         "url": "https://wasmer-js.pages.dev/test.wasm",
         "maxHours": 72,
         "functionName": "test",
+        "stdin": "",
         "env": "{}",
         "dirs": "{}",
         "args": [],

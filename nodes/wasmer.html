@@ -30,6 +30,7 @@
                 },
             },
             functionName: { value: "" },
+            stdin: { value: "" },
             env: { value: "{}" },
             dirs: {
                 value: "{}",
@@ -40,6 +41,7 @@
                     return !v || Array.isArray(v);
                 },
             },
+            externalFns: { value: "{}" },
         },
         inputs: 1,
         outputs: 1,
@@ -60,12 +62,14 @@
                 mode: "monaco/mode/regex",
                 value: (Array.isArray(this?.args) ? this.args?.join("\n") : this?.args) ?? "",
             });
-            ["#node-input-env", "#node-input-dirs"].forEach((selector) => {
-                $(selector).typedInput({
-                    type: "json",
-                    types: ["json"],
-                });
-            });
+            ["#node-input-env", "#node-input-dirs", "#node-input-externalFns"].forEach(
+                (selector) => {
+                    $(selector).typedInput({
+                        type: "json",
+                        types: ["json"],
+                    });
+                }
+            );
         },
         oneditsave: function () {
             let val = this.editor.getValue();
@@ -109,7 +113,7 @@
         <input type="hidden" id="node-input-name-type" />
     </div>
     <div class="form-tips"><b>ℹ️ Tip:</b> The name that appears in the flow editor.</div>
-
+    <hr />
     <div class="form-row">
         <label for="node-input-allowlist"><i class="fa fa-check"></i> Allowlist</label>
         <input id="node-input-allowlist" placeholder="allowlist" />
@@ -141,7 +145,16 @@
         <b>ℹ️ Tip:</b> The maximum number of hours the <code>.wasm</code> file will be stored for
         before it is re-fetched. Default: 72.
     </div>
-
+    <div class="form-row">
+        <label for="node-input-env"><i class="fa fa-list"></i> Environment Variables</label>
+        <input type="text" id="node-input-env" placeholder="" />
+        <input type="hidden" id="node-input-env-type" />
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> A flat JSON list of key-value pairs to be passed as environment variables to
+        the function.
+    </div>
+    <hr />
     <div class="form-row">
         <label for="node-input-functionName"><i class="fa fa-code"></i> Function</label>
         <input type="text" id="node-input-functionName" placeholder="main" />
@@ -150,6 +163,14 @@
     <div class="form-tips">
         <b>ℹ️ Tip:</b>The name of the function inside the <code>.wasm</code> file that will run.
         Default: <code>main</code>.
+    </div>
+
+    <div class="form-row">
+        <label for="args-editor"><i class="fa fa-list"></i> Arguments</label>
+        <div id="args-editor" style="height:5em" class="node-text-editor"></div>
+    </div>
+    <div class="form-tips">
+        <b>ℹ️ Tip:</b> One per line. Passed to the function when it executes.
     </div>
 
     <div class="form-row">
@@ -163,32 +184,27 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-env"><i class="fa fa-list"></i> Environment Variables</label>
-        <input type="text" id="node-input-env" placeholder="" />
-        <input type="hidden" id="node-input-env-type" />
-    </div>
-    <div class="form-tips">
-        <b>ℹ️ Tip:</b> A flat JSON list of key-value pairs to be passed as environment variables to
-        the function.
-    </div>
-
-    <div class="form-row">
-        <label for="node-input-dirs"><i class="fa fa-folder-open-o"></i> Files</label>
+        <label for="node-input-dirs"
+            ><i class="fa fa-folder-open-o"></i> Directories and Files</label
+        >
         <input type="text" id="node-input-dirs" placeholder="" />
         <input type="hidden" id="node-input-dirs-type" />
     </div>
     <div class="form-tips">
-        <b>ℹ️ Tip:</b> A flat JSON list of key-value pairs to be passed as available directories and
-        file content.
+        <b>ℹ️ Tip:</b> A flat JSON list of key-value pairs where keys are paths or directories and
+        values are file content. A file is created if content is specified, else a directory is
+        created.
     </div>
-
+    <!-- <hr />
     <div class="form-row">
-        <label for="args-editor"><i class="fa fa-list"></i> Arguments</label>
-        <div id="args-editor" style="height:5em" class="node-text-editor"></div>
+        <label for="node-input-externalFns"><i class="fa fa-code"></i> External Functions</label>
+        <input type="text" id="node-input-externalFns" />
+        <input type="hidden" id="node-input-externalFns-type" />
     </div>
     <div class="form-tips">
-        <b>ℹ️ Tip:</b> One per line. Passed to the function when it executes.
-    </div>
+        <b>ℹ️ Tip:</b>External JavaScript functions made accessible to the module. The key should be
+        the name of the function and the values should be the function.
+    </div> -->
 </script>
 
 <script type="text/markdown" data-help-name="wasmer">
