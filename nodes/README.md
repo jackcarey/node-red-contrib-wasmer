@@ -8,7 +8,7 @@ None.
 
 ## How to install
 
-Follow the instructions on the NodeRED website, or run `npm i @jackcarey/nodered-wasmer` in your server directory.
+Follow the instructions on the NodeRED website, or run `npm i @jackcarey/node-red-wasmer` in your server directory.
 
 - [Adding Nodes to the paleltte - NodeRED](https://nodered.org/docs/user-guide/runtime/adding-nodes)
 
