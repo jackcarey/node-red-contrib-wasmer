@@ -1,12 +1,16 @@
 {
   "name": "@jackcarey/node-red-wasmer",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Execute WebAssembly code within NodeRED.",
   "node-red": {
+    "version": ">=3.0.2",
     "nodes": {
       "urlAllowlist": "urlAllowlist.js",
       "wasmer": "wasmer.js"
     }
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
