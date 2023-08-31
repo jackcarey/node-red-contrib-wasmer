@@ -1,6 +1,6 @@
 # node-red-wasmer
 
-Use WebAssembly files in [NodeRED](https://nodered.org/) via [wasmer-js](wasmer-js).
+Use WebAssembly files in [NodeRED](https://nodered.org/) via [wasmer-js](https://github.com/wasmerio/wasmer-js).
 
 ## Prerequisites
 
