@@ -87,12 +87,13 @@
             "08535bc79a10d281",
             "1d2804cd747b9171",
             "c1096a9d9bf7bcd0",
-            "4eb3a3bda92192b2"
+            "4eb3a3bda92192b2",
+            "693ef6d96a399f8e"
         ],
         "x": 34,
         "y": 19,
-        "w": 532,
-        "h": 322
+        "w": 572,
+        "h": 342
     },
     {
         "id": "b0734e6efd6a5d13",
@@ -324,7 +325,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 240,
+        "y": 220,
         "wires": [
             [
                 "76adbc4acf0d8b3b"
@@ -346,7 +347,7 @@
         "dirs": "{\"/a\":\"\",\"/b\":\"\",\"/file\":\"fileContents\"}",
         "args": [],
         "x": 290,
-        "y": 240,
+        "y": 220,
         "wires": [
             [
                 "4eb3a3bda92192b2"
@@ -446,7 +447,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 300,
+        "y": 320,
         "wires": [
             [
                 "08535bc79a10d281"
@@ -468,7 +469,7 @@
         "dirs": "{}",
         "args": [],
         "x": 290,
-        "y": 300,
+        "y": 320,
         "wires": [
             [
                 "1d2804cd747b9171"
@@ -490,7 +491,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 440,
-        "y": 300,
+        "y": 320,
         "wires": []
     },
     {
@@ -518,8 +519,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 440,
-        "y": 240,
+        "x": 480,
+        "y": 220,
         "wires": []
     },
     {
@@ -753,5 +754,16 @@
                 "e99880b92ea5b914"
             ]
         ]
+    },
+    {
+        "id": "693ef6d96a399f8e",
+        "type": "comment",
+        "z": "d226b144c9884f5c",
+        "g": "6949b6f816ea10f1",
+        "name": "external functions not yet implemented",
+        "info": "The features required for module imports\nand external functions haven't been implemented yet.\nThe tests for these can be seen on:\n\nhttps://github.com/jackcarey/wasmer-js/blob/main/tests/index.spec.js",
+        "x": 430,
+        "y": 280,
+        "wires": []
     }
 ]
