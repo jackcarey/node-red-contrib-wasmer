@@ -1,6 +1,6 @@
 {
-  "name": "nodered-wasmer",
-  "version": "0.0.1",
+  "name": "@jackcarey/node-red-wasmer",
+  "version": "0.0.3",
   "description": "Execute WebAssembly code within NodeRED.",
   "node-red": {
     "nodes": {
@@ -13,24 +13,29 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jackcarey/node-red-contrib-wasm-nodes.git"
+    "url": "git+https://github.com/jackcarey/node-red-wasmer.git"
   },
   "keywords": [
     "NodeRED",
     "node-red",
     "JavaScript",
     "WebAssembly",
+    "wasmer",
     "low-code",
     "cross-platform"
   ],
   "author": "Jack Carey (jackcarey.co.uk)",
-  "license": "GPL-3.0-or-later",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jackcarey/node-red-contrib-wasm-nodes/issues"
+    "url": "https://github.com/jackcarey/node-red-wasmer/issues"
   },
-  "homepage": "https://github.com/jackcarey/node-red-contrib-wasm-nodes#readme",
+  "homepage": "https://github.com/jackcarey/node-red-wasmer#readme",
   "dependencies": {
     "@wasmer/wasi": "^1.2.2",
     "seedrandom": "^3.0.5"
-  }
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "devDependencies": {}
 }

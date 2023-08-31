@@ -44,7 +44,7 @@ module.exports = function (RED) {
                     }
 
                     if (!wasmFileBuffer || JSON.stringify(configObj) != instantiatedConfigStr) {
-                        wasmFileBuffer = await checkFetchURLFile(node, configObj?.url, {}, "wasmer");
+                        wasmFileBuffer = await checkFetchURLFile(node, configObj?.url, {}, "wasm_files");
                         instantiatedConfigStr = JSON.stringify(configObj);
                     }
 

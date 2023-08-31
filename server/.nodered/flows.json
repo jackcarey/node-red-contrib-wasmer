@@ -8,6 +8,14 @@
         "env": []
     },
     {
+        "id": "133003c439760d95",
+        "type": "tab",
+        "label": "nodered-wasmer Example",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "9edf03dd056a5e9f",
         "type": "group",
         "z": "d226b144c9884f5c",
@@ -61,7 +69,7 @@
         "h": 202
     },
     {
-        "id": "6949b6f816ea10f1",
+        "id": "053b3fc7371cf6a9",
         "type": "group",
         "z": "d226b144c9884f5c",
         "style": {
@@ -83,12 +91,12 @@
             "e8d5da2313b102f9",
             "817548f822129697",
             "beda83bebf1815a8",
-            "5046f757c74b9507",
-            "08535bc79a10d281",
             "1d2804cd747b9171",
             "c1096a9d9bf7bcd0",
             "4eb3a3bda92192b2",
-            "693ef6d96a399f8e"
+            "693ef6d96a399f8e",
+            "08535bc79a10d281",
+            "5046f757c74b9507"
         ],
         "x": 34,
         "y": 19,
@@ -204,7 +212,7 @@
         "id": "f26b9d77e4fcbeb0",
         "type": "inject",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "",
         "props": [
             {
@@ -234,12 +242,13 @@
         "id": "bc9ab6b7bc1e4c8c",
         "type": "wasmer",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "",
         "allowlist": "cb20093a9c91192e",
         "url": "https://wasmer-js.pages.dev/demo.wasm",
         "maxHours": 72,
         "functionName": "demo",
+        "stdin": "",
         "env": "{}",
         "dirs": "{}",
         "args": [],
@@ -255,7 +264,7 @@
         "id": "9cdde19bbd59eb85",
         "type": "inject",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "",
         "props": [
             {
@@ -285,7 +294,7 @@
         "id": "0120e9d7096e8764",
         "type": "wasmer",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "",
         "allowlist": "cb20093a9c91192e",
         "url": "https://wasmer-js.pages.dev/envvar.wasm",
@@ -306,7 +315,7 @@
         "id": "5c7cff7c8d706e89",
         "type": "inject",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "",
         "props": [
             {
@@ -336,7 +345,7 @@
         "id": "76adbc4acf0d8b3b",
         "type": "wasmer",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "",
         "allowlist": "cb20093a9c91192e",
         "url": "https://wasmer-js.pages.dev/mapdir.wasm",
@@ -358,7 +367,7 @@
         "id": "e8d5da2313b102f9",
         "type": "inject",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "",
         "props": [
             {
@@ -388,7 +397,7 @@
         "id": "817548f822129697",
         "type": "wasmer",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "",
         "allowlist": "cb20093a9c91192e",
         "url": "https://wasmer-js.pages.dev/pipe_reverse.wasm",
@@ -410,7 +419,7 @@
         "id": "beda83bebf1815a8",
         "type": "debug",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "stdout",
         "active": true,
         "tosidebar": true,
@@ -425,62 +434,10 @@
         "wires": []
     },
     {
-        "id": "5046f757c74b9507",
-        "type": "inject",
-        "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 140,
-        "y": 320,
-        "wires": [
-            [
-                "08535bc79a10d281"
-            ]
-        ]
-    },
-    {
-        "id": "08535bc79a10d281",
-        "type": "wasmer",
-        "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
-        "name": "",
-        "allowlist": "cb20093a9c91192e",
-        "url": "https://wasmer-js.pages.dev/test.wasm",
-        "maxHours": 72,
-        "functionName": "test",
-        "stdin": "",
-        "env": "{}",
-        "dirs": "{}",
-        "args": [],
-        "x": 290,
-        "y": 320,
-        "wires": [
-            [
-                "1d2804cd747b9171"
-            ]
-        ]
-    },
-    {
         "id": "1d2804cd747b9171",
         "type": "debug",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "debug 3",
         "active": true,
         "tosidebar": true,
@@ -498,7 +455,7 @@
         "id": "c1096a9d9bf7bcd0",
         "type": "comment",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "Where do these tests come from?",
         "info": "They're from the Wasmer-JS test suite.\n\nhttps://github.com/jackcarey/wasmer-js/blob/main/tests/index.spec.js",
         "x": 410,
@@ -509,7 +466,7 @@
         "id": "4eb3a3bda92192b2",
         "type": "debug",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "wasmer",
         "active": true,
         "tosidebar": true,
@@ -759,11 +716,295 @@
         "id": "693ef6d96a399f8e",
         "type": "comment",
         "z": "d226b144c9884f5c",
-        "g": "6949b6f816ea10f1",
+        "g": "053b3fc7371cf6a9",
         "name": "external functions not yet implemented",
         "info": "The features required for module imports\nand external functions haven't been implemented yet.\nThe tests for these can be seen on:\n\nhttps://github.com/jackcarey/wasmer-js/blob/main/tests/index.spec.js",
         "x": 430,
         "y": 280,
+        "wires": []
+    },
+    {
+        "id": "08535bc79a10d281",
+        "type": "wasmer",
+        "z": "d226b144c9884f5c",
+        "g": "053b3fc7371cf6a9",
+        "name": "",
+        "allowlist": "cb20093a9c91192e",
+        "url": "https://wasmer-js.pages.dev/test.wasm",
+        "maxHours": 72,
+        "functionName": "test",
+        "stdin": "",
+        "env": "{}",
+        "dirs": "{}",
+        "args": [],
+        "x": 290,
+        "y": 320,
+        "wires": [
+            [
+                "1d2804cd747b9171"
+            ]
+        ]
+    },
+    {
+        "id": "5046f757c74b9507",
+        "type": "inject",
+        "z": "d226b144c9884f5c",
+        "g": "053b3fc7371cf6a9",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 320,
+        "wires": [
+            [
+                "08535bc79a10d281"
+            ]
+        ]
+    },
+    {
+        "id": "934b7209325e2a48",
+        "type": "inject",
+        "z": "133003c439760d95",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 40,
+        "wires": [
+            [
+                "c45792a03579023d"
+            ]
+        ]
+    },
+    {
+        "id": "c45792a03579023d",
+        "type": "wasmer",
+        "z": "133003c439760d95",
+        "name": "",
+        "allowlist": "cb20093a9c91192e",
+        "url": "https://wasmer-js.pages.dev/demo.wasm",
+        "maxHours": 72,
+        "functionName": "demo",
+        "env": "{}",
+        "dirs": "{}",
+        "args": [],
+        "x": 250,
+        "y": 40,
+        "wires": [
+            [
+                "e900503182390afb"
+            ]
+        ]
+    },
+    {
+        "id": "4f75ac69e9295bcb",
+        "type": "inject",
+        "z": "133003c439760d95",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 80,
+        "wires": [
+            [
+                "85169c18711cd456"
+            ]
+        ]
+    },
+    {
+        "id": "85169c18711cd456",
+        "type": "wasmer",
+        "z": "133003c439760d95",
+        "name": "",
+        "allowlist": "cb20093a9c91192e",
+        "url": "https://wasmer-js.pages.dev/envvar.wasm",
+        "maxHours": 72,
+        "functionName": "envvar",
+        "env": "{\"ENV1\":\"one\",\"ENV2\":\"TWO\",\"DOG\":\"WOOF\",\"DOG_TYPE\":\"LABRADOR\"}",
+        "dirs": "{}",
+        "args": [],
+        "x": 250,
+        "y": 80,
+        "wires": [
+            [
+                "e900503182390afb"
+            ]
+        ]
+    },
+    {
+        "id": "234baa9942ee8613",
+        "type": "inject",
+        "z": "133003c439760d95",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 160,
+        "wires": [
+            [
+                "572654faad6376db"
+            ]
+        ]
+    },
+    {
+        "id": "572654faad6376db",
+        "type": "wasmer",
+        "z": "133003c439760d95",
+        "name": "",
+        "allowlist": "cb20093a9c91192e",
+        "url": "https://wasmer-js.pages.dev/mapdir.wasm",
+        "maxHours": 72,
+        "functionName": "mapdir",
+        "stdin": "",
+        "env": "{}",
+        "dirs": "{\"/a\":\"\",\"/b\":\"\",\"/file\":\"fileContents\"}",
+        "args": [],
+        "x": 250,
+        "y": 160,
+        "wires": [
+            [
+                "0b5801ca54f5c0d6"
+            ]
+        ]
+    },
+    {
+        "id": "13caaf3e2449291d",
+        "type": "inject",
+        "z": "133003c439760d95",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 120,
+        "wires": [
+            [
+                "c3863094134224a6"
+            ]
+        ]
+    },
+    {
+        "id": "c3863094134224a6",
+        "type": "wasmer",
+        "z": "133003c439760d95",
+        "name": "",
+        "allowlist": "cb20093a9c91192e",
+        "url": "https://wasmer-js.pages.dev/pipe_reverse.wasm",
+        "maxHours": 72,
+        "functionName": "pipe_reverse",
+        "stdin": "Hello world!",
+        "env": "{}",
+        "dirs": "{}",
+        "args": [],
+        "x": 270,
+        "y": 120,
+        "wires": [
+            [
+                "e900503182390afb"
+            ]
+        ]
+    },
+    {
+        "id": "e900503182390afb",
+        "type": "debug",
+        "z": "133003c439760d95",
+        "name": "stdout",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "wasmer.stdout",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 430,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "0b5801ca54f5c0d6",
+        "type": "debug",
+        "z": "133003c439760d95",
+        "name": "wasmer",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "wasmer",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 160,
         "wires": []
     }
 ]
