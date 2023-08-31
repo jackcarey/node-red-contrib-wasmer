@@ -208,45 +208,38 @@
 </script>
 
 <script type="text/markdown" data-help-name="wasmer">
-    Execute WebAssembly using Wasmer.
-
-    ### Inputs
-
-    1. Allowlist
-       : allowlist (regex) : An allowed list of URL regular expression patterns.
-    2. URL
-       : url (string) : The address to fetch the WebAssembly file from.
-    3. Function
-       : functionName (string) : The name of the function to run.
-    4. Standard Input
-       : stdin (string) : Text to pass to the function after it first executes.
-    5. Environment Variables
-       : env (JSON) : Environment variables that can be accessed withing the function.
-    6. Arguments
-       : args (array[string]) : Arguments to pass into the function separated by spaces.
-    7. Directories
-       : dirs (JSON) : Virtual file paths made available to the module, and their contents.
-    8. Age
-       : maxHours (number) : The maximum number of hours before attempting to re-fetch the `.wasm` file.
-       **Overriding Inputs:** The following inputs can be overridden by passing them in `msg.payload`: `url`, `functionName`, `stdin`, `args`, `dirs`.
-
-    ### Outputs
-
-    Available inside `msg.wasmer`.
-
-    1. Exit Code
-       : exitCode (number) : The exit code of the function that ran.
-    2. Standard Input
-       : stdin (string) : The input buffer as a string.
-    3. Standard Output
-       : stdout (string) : The console output of the function that ran.
-    4. StdErr
-       : stderr (string) : Any error messages.
-    5. Directories
-       : dirs (JSON) : The path and contents of each virtual file.
-
-    ### References
-
-    -   [Wasmer](https://wasmer.io/)
-    -   [Regular Expressions](https://en.wikipedia.org/wiki/Regular_expression)
+Execute WebAssembly using Wasmer.
+### Inputs
+1. Allowlist
+   : allowlist (regex) : An allowed list of URL regular expression patterns.
+2. URL
+   : url (string) : The address to fetch the WebAssembly file from.
+3. Function
+   : functionName (string) : The name of the function to run.
+4. Standard Input
+   : stdin (string) : Text to pass to the function after it first executes.
+5. Environment Variables
+   : env (JSON) : Environment variables that can be accessed withing the function.
+6. Arguments
+   : args (array[string]) : Arguments to pass into the function separated by spaces.
+7. Directories
+   : dirs (JSON) : Virtual file paths made available to the module, and their contents.
+8. Age
+   : maxHours (number) : The maximum number of hours before attempting to re-fetch the `.wasm` file.
+   **Overriding Inputs:** The following inputs can be overridden by passing them in `msg.payload`: `url`, `functionName`, `stdin`, `args`, `dirs`.
+### Outputs
+Available inside `msg.wasmer`.
+1. Exit Code
+   : exitCode (number) : The exit code of the function that ran.
+2. Standard Input
+   : stdin (string) : The input buffer as a string.
+3. Standard Output
+   : stdout (string) : The console output of the function that ran.
+4. StdErr
+   : stderr (string) : Any error messages.
+5. Directories
+   : dirs (JSON) : The path and contents of each virtual file.
+### References
+-   [Wasmer](https://wasmer.io/)
+-   [Regular Expressions](https://en.wikipedia.org/wiki/Regular_expression)
 </script>
