@@ -25,6 +25,9 @@
     "JavaScript",
     "WebAssembly",
     "wasmer",
+    "webassembly",
+    "wasm",
+    "wasi",
     "low-code",
     "cross-platform"
   ],
