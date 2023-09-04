@@ -4,7 +4,7 @@ Use WebAssembly files in [NodeRED](https://nodered.org/) via [wasmer-js](https:/
 
 ## Prerequisites
 
-None.
+Node.js v16+
 
 ## How to install
 
