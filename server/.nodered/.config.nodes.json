@@ -418,7 +418,7 @@
     },
     "@jackcarey/node-red-wasmer": {
         "name": "@jackcarey/node-red-wasmer",
-        "version": "0.0.3",
+        "version": "0.0.5",
         "local": false,
         "user": false,
         "nodes": {

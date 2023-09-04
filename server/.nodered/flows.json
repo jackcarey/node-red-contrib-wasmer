@@ -91,17 +91,12 @@
             "e8d5da2313b102f9",
             "817548f822129697",
             "beda83bebf1815a8",
-            "1d2804cd747b9171",
-            "c1096a9d9bf7bcd0",
-            "4eb3a3bda92192b2",
-            "693ef6d96a399f8e",
-            "08535bc79a10d281",
-            "5046f757c74b9507"
+            "4eb3a3bda92192b2"
         ],
         "x": 34,
-        "y": 19,
-        "w": 572,
-        "h": 342
+        "y": 159,
+        "w": 552,
+        "h": 202
     },
     {
         "id": "b0734e6efd6a5d13",
@@ -231,7 +226,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 100,
+        "y": 200,
         "wires": [
             [
                 "bc9ab6b7bc1e4c8c"
@@ -253,7 +248,7 @@
         "dirs": "{}",
         "args": [],
         "x": 290,
-        "y": 100,
+        "y": 200,
         "wires": [
             [
                 "beda83bebf1815a8"
@@ -283,7 +278,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 140,
+        "y": 240,
         "wires": [
             [
                 "0120e9d7096e8764"
@@ -304,7 +299,7 @@
         "dirs": "{}",
         "args": [],
         "x": 290,
-        "y": 140,
+        "y": 240,
         "wires": [
             [
                 "beda83bebf1815a8"
@@ -334,7 +329,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 220,
+        "y": 320,
         "wires": [
             [
                 "76adbc4acf0d8b3b"
@@ -356,7 +351,7 @@
         "dirs": "{\"/a\":\"\",\"/b\":\"\",\"/file\":\"fileContents\"}",
         "args": [],
         "x": 290,
-        "y": 220,
+        "y": 320,
         "wires": [
             [
                 "4eb3a3bda92192b2"
@@ -386,7 +381,7 @@
         "payload": "",
         "payloadType": "date",
         "x": 140,
-        "y": 180,
+        "y": 280,
         "wires": [
             [
                 "817548f822129697"
@@ -408,7 +403,7 @@
         "dirs": "{}",
         "args": [],
         "x": 310,
-        "y": 180,
+        "y": 280,
         "wires": [
             [
                 "beda83bebf1815a8"
@@ -430,36 +425,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 470,
-        "y": 140,
-        "wires": []
-    },
-    {
-        "id": "1d2804cd747b9171",
-        "type": "debug",
-        "z": "d226b144c9884f5c",
-        "g": "053b3fc7371cf6a9",
-        "name": "debug 3",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 440,
-        "y": 320,
-        "wires": []
-    },
-    {
-        "id": "c1096a9d9bf7bcd0",
-        "type": "comment",
-        "z": "d226b144c9884f5c",
-        "g": "053b3fc7371cf6a9",
-        "name": "Where do these tests come from?",
-        "info": "They're from the Wasmer-JS test suite.\n\nhttps://github.com/jackcarey/wasmer-js/blob/main/tests/index.spec.js",
-        "x": 410,
-        "y": 60,
+        "y": 240,
         "wires": []
     },
     {
@@ -477,7 +443,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 480,
-        "y": 220,
+        "y": 320,
         "wires": []
     },
     {
@@ -709,69 +675,6 @@
         "wires": [
             [
                 "e99880b92ea5b914"
-            ]
-        ]
-    },
-    {
-        "id": "693ef6d96a399f8e",
-        "type": "comment",
-        "z": "d226b144c9884f5c",
-        "g": "053b3fc7371cf6a9",
-        "name": "external functions not yet implemented",
-        "info": "The features required for module imports\nand external functions haven't been implemented yet.\nThe tests for these can be seen on:\n\nhttps://github.com/jackcarey/wasmer-js/blob/main/tests/index.spec.js",
-        "x": 430,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "08535bc79a10d281",
-        "type": "wasmer",
-        "z": "d226b144c9884f5c",
-        "g": "053b3fc7371cf6a9",
-        "name": "",
-        "allowlist": "cb20093a9c91192e",
-        "url": "https://wasmer-js.pages.dev/test.wasm",
-        "maxHours": 72,
-        "functionName": "test",
-        "stdin": "",
-        "env": "{}",
-        "dirs": "{}",
-        "args": [],
-        "x": 290,
-        "y": 320,
-        "wires": [
-            [
-                "1d2804cd747b9171"
-            ]
-        ]
-    },
-    {
-        "id": "5046f757c74b9507",
-        "type": "inject",
-        "z": "d226b144c9884f5c",
-        "g": "053b3fc7371cf6a9",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 140,
-        "y": 320,
-        "wires": [
-            [
-                "08535bc79a10d281"
             ]
         ]
     },
