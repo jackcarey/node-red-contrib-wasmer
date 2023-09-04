@@ -1,6 +1,6 @@
 {
   "name": "@jackcarey/node-red-wasmer",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Execute WebAssembly code within NodeRED.",
   "node-red": {
     "version": ">=3.0.2",
